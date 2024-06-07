@@ -11,18 +11,18 @@ const Photo = () => {
         quality={100}
         fill
         alt=''
-        className='object-contain  rounded-full overflow-hidden'
+        className='object-contain rounded-full overflow-hidden'
       />
       <motion.svg
-        className='w-[300px] h-[300px] xl:w-[506px] xl:h-[506px]'
+        className='w-[304px] h-[304px] xl:w-[510px] xl:h-[510px]'
         fill='transparent'
-        viewBox='0 0 506 506'
+        viewBox='0 0 510 510'
         xmlns='https://www.w3.org/2000/svg'
       >
         <motion.circle
-          cx='253'
-          cy='253'
-          r='253'
+          cx='255'
+          cy='255'
+          r='255'
           stroke='#00ff99'
           strokeLinecap='round'
           strokeLinejoin='round'
