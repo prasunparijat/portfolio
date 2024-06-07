@@ -13,7 +13,7 @@ const Header = () => {
         <Link href='/'>
           <h1 className='text-4xl text-bold'>
             Prasun
-            <span className='text-accent'>.</span>
+            <span className='text-accent'>.</span>P
           </h1>
         </Link>
         {/* desktop nav */}

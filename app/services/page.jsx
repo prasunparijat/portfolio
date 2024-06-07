@@ -6,31 +6,31 @@ import { motion } from 'framer-motion';
 const servicesOffered = [
   {
     num: '01',
-    title: 'Web Development',
+    title: 'FE Development',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus vitae eaque dolorum vero provident placeat eum enim iusto ratione distinctio non rerum,',
-    href: '',
+      'Crafting beautiful and intuitive user interfaces that bring your vision to life. Designing user journeys that engage and delight your audience.',
+    href: '/contact',
   },
   {
     num: '02',
-    title: 'Backend Development',
+    title: 'BE Development',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus vitae eaque dolorum vero provident placeat eum enim iusto ratione distinctio non rerum,',
-    href: '',
+      'Building the brains behind your apps - APIs, microservices, and secure data management. Powering your applications with robust and scalable backend solutions.',
+    href: '/contact',
   },
   {
     num: '03',
     title: 'AWS deployment',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus vitae eaque dolorum vero provident placeat eum enim iusto ratione distinctio non rerum,',
-    href: '',
+      'Seamlessly deploy your applications to the cloud using the power of AWS. Leveraging AWS for secure, scalable, and cost-effective deployments.',
+    href: '/contact',
   },
   {
     num: '04',
     title: 'End 2 End DevDeploy',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus vitae eaque dolorum vero provident placeat eum enim iusto ratione distinctio non rerum,',
-    href: '',
+      'Streamlined development and deployment, taking your project from concept to launch. We handle the entire process, so you can focus on building great things.',
+    href: '/contact',
   },
 ];
 const Services = () => {

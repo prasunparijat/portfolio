@@ -20,7 +20,7 @@ const MobileNav = () => {
           href='/'
           className='mt-32 mb-40 text-center text-2xl text-semibold'
         >
-          Prasun <span className='text-accent'>.</span>
+          Prasun <span className='text-accent'>.</span>P
         </Link>
         {/* nav content */}
         <nav className='flex flex-col justify-center items-center gap-8'>

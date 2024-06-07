@@ -18,30 +18,33 @@ import WorkerSliderButtons from '@/components/WorkerSliderButtons';
 const projects = [
   {
     num: '01',
-    category: 'Frontend',
-    title: 'Commerce App',
-    description: 'Lorem loremlorem lorem l;oeremn aKDN nAKSdn ',
-    stack: [{ name: 'Html 5' }, { name: 'Css 3' }, { name: 'Js' }],
+    category: 'Backend ',
+    title: 'FUTY Mvp Backend',
+    description:
+      'Single game (football) fantasy BE including the following features: user login, email system, session-management, team submission, leaderboard, referral program & incentives, support, score calculation after getting events for specific events during the match from third party, automated slack alerts',
+    stack: [{ name: 'Golang' }, { name: 'Sqlc' }, { name: 'PostgreSQL' }],
     img: '/assets/work/thumb1.png',
     live: '',
     github: '',
   },
   {
     num: '02',
-    category: 'Backend',
-    title: 'FUTY BAckend',
-    description: 'Lorem loremlorem lorem l;oeremn aKDN nAKSdn ',
-    stack: [{ name: 'Golang' }, { name: 'Postgresql' }],
+    category: 'Frontend',
+    title: 'FUTY MVP Frontend',
+    description:
+      'Designed and implemented the complete frontend from scratch in svelte handling all the reactivity required for the dynamic nature of team creation and submission based on the logic decided by the product team',
+    stack: [{ name: 'Svelte' }],
     img: '/assets/work/thumb2.png',
     live: '',
     github: '',
   },
   {
     num: '03',
-    category: 'FullStack',
-    title: 'FUTY Kanban',
-    description: 'Lorem loremlorem lorem l;oeremn aKDN nAKSdn ',
-    stack: [{ name: 'React' }, { name: 'Css 3' }, { name: 'Js' }],
+    category: 'AWS Deployment',
+    title: 'FUTY MVP Deployment',
+    description:
+      'Both FE and BE deployed on the EC2 instance and the domains hosted from hostinger and registered the cname from AWS. Load balancing for both the BE and FE services. DB accessible only from the private subnet created in the AWS and through remote ssh login.',
+    stack: [{ name: 'AWS' }],
     img: '/assets/work/thumb3.png',
     live: '',
     github: '',
@@ -73,8 +76,9 @@ const Work = () => {
             </div>
             {/* project description */}
             <div className='text-white font-bold leading-none transition-all duration-500 text-[42px] capitalise group-hover:text-accent'>
-              {project.category} project
+              {project.category}
             </div>
+            <p className='text-white/80'>{project.title}</p>
             <p className='text-white/60'>{project.description}</p>
             <ul className='flex gap-4'>
               {project.stack.map((item, index) => {
@@ -96,8 +100,8 @@ const Work = () => {
               <Link href={project.live}>
                 <TooltipProvider delayDuration={100}>
                   <Tooltip>
-                    <TooltipTrigger className='w-[70px] h-[70px] rounded-full flex justify-center items-center bg-white/5 group border border-white'>
-                      <BsArrowUpRight className='text-white text-3xl group-hover:text-accent' />
+                    <TooltipTrigger className='w-[70px] h-[70px] rounded-full flex justify-center items-center bg-white/5 group border border-white hover:bg-accent transition-all duration-500'>
+                      <BsArrowUpRight className='text-white text-3xl group-hover:text-primary group-hover:rotate-45 transition-all duration-500' />
                     </TooltipTrigger>
                     <TooltipContent>Live Project</TooltipContent>
                   </Tooltip>
@@ -107,8 +111,8 @@ const Work = () => {
               <Link href={project.github}>
                 <TooltipProvider delayDuration={100}>
                   <Tooltip>
-                    <TooltipTrigger className='w-[70px] h-[70px] rounded-full flex justify-center items-center bg-white/5 group border border-white'>
-                      <BsGithub className='text-white text-3xl group-hover:text-accent' />
+                    <TooltipTrigger className='w-[70px] h-[70px] rounded-full flex justify-center items-center bg-white/5 group border border-white hover:bg-accent transition-all duration-500'>
+                      <BsGithub className='text-white text-3xl group-hover:text-primary' />
                     </TooltipTrigger>
                     <TooltipContent>Github Repo</TooltipContent>
                   </Tooltip>
@@ -117,42 +121,44 @@ const Work = () => {
             </div>
           </div>
           {/* photo slider */}
-          <div className='w-full xl:w-[50%]'>
-            <Swiper
-              spaceBetween={30}
-              slidesPerView={1}
-              className='xl:h-[520px] mb-12'
-              onSlideChange={handleSlideChange}
-            >
-              {projects.map((item, index) => {
-                return (
-                  <SwiperSlide
-                    key={index}
-                    className='w-full'
-                  >
-                    <div className='h-[460px] relative group flex justify-center items-center'>
-                      {/* overlay */}
-                      <div className='absolute top-0 bottom-0 h-full w-full bg-black/10 z-10'></div>
-                      {/* image */}
-                      <div className='w-full h-full relative'>
-                        <Image
-                          src={project.img}
-                          priority
-                          quality={100}
-                          fill
-                          alt=''
-                          className='object-cover rounded-xl'
-                        />
+          <div className='w-full xl:w-[50%] '>
+            <div className='top-0 z-[-2] bg-[#27272c] bg-[radial-gradient(#00ff9933_1px,#00091f_1px)] bg-[size:20px_20px]'>
+              <Swiper
+                spaceBetween={30}
+                slidesPerView={1}
+                className='xl:h-[520px] mb-12'
+                onSlideChange={handleSlideChange}
+              >
+                {projects.map((item, index) => {
+                  return (
+                    <SwiperSlide
+                      key={index}
+                      className='w-full'
+                    >
+                      <div className='h-[460px] relative group flex justify-center items-center'>
+                        {/* overlay */}
+                        <div className='absolute top-0 bottom-0 h-full w-full bg-black/10 z-10'></div>
+                        {/* image */}
+                        <div className='w-full h-full relative'>
+                          <Image
+                            src={item.img}
+                            priority
+                            quality={100}
+                            fill
+                            alt=''
+                            className='object-contain rounded-xl'
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
-              <WorkerSliderButtons
-                containerStyles='flex gap-2 justify-between absolute bottom-[calc(50%_-_22px)] w-full z-20 right-0 xl:justify-none xl:w-max xl:bottom-0'
-                btnStyles='w-[44px] h-[44px] text-[22px] text-primary bg-accent flex justify-center items-center'
-              />
-            </Swiper>
+                    </SwiperSlide>
+                  );
+                })}
+                <WorkerSliderButtons
+                  containerStyles='flex gap-2 justify-between absolute bottom-[calc(50%_-_22px)] w-full z-20 right-0 xl:justify-none xl:w-max xl:bottom-0'
+                  btnStyles='w-[44px] h-[44px] text-[22px] text-primary bg-accent flex justify-center items-center'
+                />
+              </Swiper>
+            </div>
           </div>
         </div>
       </div>

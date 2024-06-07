@@ -52,12 +52,11 @@ const about = {
   ],
 };
 
-// experince data
+// experience data
 const experience = {
   icon: '/assets/resume/badge.svg',
   title: 'My Experience',
-  description:
-    'Lorem ajsbdkabsd ajsbnd kjabs asdjnakjs jkabnsdjkasdjk andsj aSd',
+  description: 'Delivered impactful and result-oriented features and solutions',
   items: [
     {
       company: 'FUTY',
@@ -73,16 +72,6 @@ const experience = {
       company: 'Cashfree Payments',
       position: 'Software Development Engineer - Intern',
       duration: 'Jan 2022 - June 2024',
-    },
-    {
-      company: 'American Express',
-      position: 'Software Engineer - Summer Intern',
-      duration: 'May 2021 - June 2021',
-    },
-    {
-      position: 'Software Engineer - Summer Intern',
-      company: 'American Express',
-      duration: 'May 2021 - June 2021',
     },
     {
       company: 'American Express',
@@ -172,6 +161,7 @@ import {
 
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { motion } from 'framer-motion';
+import { AppearSlideY } from '../transitions';
 
 const Resume = () => {
   return (
@@ -189,10 +179,38 @@ const Resume = () => {
           className='flex flex-col gap-[60px] xl:flex-row'
         >
           <TabsList className='w-full max-w-[380px] mx-auto xl:mx-0 flex flex-col gap-6 '>
-            <TabsTrigger value='experience'>Experience</TabsTrigger>
-            <TabsTrigger value='skills'>Skills</TabsTrigger>
-            <TabsTrigger value='education'>Education</TabsTrigger>
-            <TabsTrigger value='about'>About Me</TabsTrigger>
+            <motion.div
+              variants={AppearSlideY(2.4, 100)}
+              initial='hidden'
+              animate='visible'
+              className='w-full'
+            >
+              <TabsTrigger value='experience'>Experience</TabsTrigger>
+            </motion.div>
+            <motion.div
+              variants={AppearSlideY(2.8, 100)}
+              initial='hidden'
+              animate='visible'
+              className='w-full'
+            >
+              <TabsTrigger value='skills'>Skills</TabsTrigger>
+            </motion.div>
+            <motion.div
+              variants={AppearSlideY(3.2, 100)}
+              initial='hidden'
+              animate='visible'
+              className='w-full'
+            >
+              <TabsTrigger value='education'>Education</TabsTrigger>
+            </motion.div>
+            <motion.div
+              variants={AppearSlideY(3.6, 100)}
+              initial='hidden'
+              animate='visible'
+              className='w-full'
+            >
+              <TabsTrigger value='about'>About Me</TabsTrigger>
+            </motion.div>
           </TabsList>
           <div className='w-full min-h-[70vh]'>
             <TabsContent
@@ -200,7 +218,7 @@ const Resume = () => {
               className='w-full'
             >
               <div className='flex flex-col gap-[30px] text-center xl:text-left'>
-                <h3 className='text-4xl font-bold'>{experience.title}</h3>
+                <h3 className='text-4xl font-bold w-'>{experience.title}</h3>
                 <p className='max-w-[600px] text-white/60 mx-auto xl:mx-0'>
                   {experience.description}
                 </p>
@@ -208,12 +226,18 @@ const Resume = () => {
                   <ul className='grid grid-cols-1 lg:grid-cols-2 gap-[30px]'>
                     {experience.items.map((item, index) => {
                       return (
-                        <li
+                        <motion.li
+                          whileInView={{ opacity: 1, x: 0 }}
+                          initial={{
+                            opacity: 0,
+                            x: index % 2 == 0 ? 100 : -100,
+                          }}
+                          transition={{ duration: 0.5 }}
                           key={index}
                           className='bg-[#232329] rounded-lg py-6 px-10 h-[174px] flex flex-col justify-center items-center lg:items-start gap-1'
                         >
                           <span className='text-accent'>{item.duration}</span>
-                          <h3 className='text-xl max-w-[260px] min-h-[60px] xl:text-left'>
+                          <h3 className='text-xl min-h-[60px] lg:text-left'>
                             {item.position}
                           </h3>
                           <div className='flex items-center gap-3'>
@@ -223,7 +247,7 @@ const Resume = () => {
                               {item.company}
                             </span>
                           </div>
-                        </li>
+                        </motion.li>
                       );
                     })}
                   </ul>
@@ -243,7 +267,13 @@ const Resume = () => {
                   <ul className='grid grid-cols-1 lg:grid-cols-2 gap-[30px]'>
                     {education.items.map((item, index) => {
                       return (
-                        <li
+                        <motion.li
+                          whileInView={{ opacity: 1, x: 0 }}
+                          initial={{
+                            opacity: 0,
+                            x: index % 2 == 0 ? 100 : -100,
+                          }}
+                          transition={{ duration: 0.5 }}
                           key={index}
                           className='bg-[#232329] rounded-lg py-6 px-10 h-[174px] flex flex-col justify-center items-center lg:items-start gap-1'
                         >
@@ -258,7 +288,7 @@ const Resume = () => {
                               {item.institution}
                             </span>
                           </div>
-                        </li>
+                        </motion.li>
                       );
                     })}
                   </ul>
@@ -311,13 +341,19 @@ const Resume = () => {
                 <ul className='grid grid-cols-1 xl:grid-cols-2 gap-y-6 mx-auto xl:mx-0 xl:gap-[30px]'>
                   {about.info.map((item, index) => {
                     return (
-                      <li
+                      <motion.li
+                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{
+                          opacity: 0,
+                          y: 100,
+                        }}
+                        transition={{ duration: 0.5 }}
                         key={index}
                         className='flex justify-center gap-4 xl:justify-start'
                       >
                         <span className='text-white/60'>{item.fieldName}</span>
                         <span className='text-xl'>{item.fieldValue}</span>
-                      </li>
+                      </motion.li>
                     );
                   })}
                 </ul>

@@ -8,16 +8,16 @@ const statsArray = [
     text: 'Years of experience',
   },
   {
-    num: 4,
+    num: 5,
     text: 'Projects completed',
   },
 
   {
-    num: 7,
+    num: 8,
     text: 'Technologies mastered',
   },
   {
-    num: 400,
+    num: 750,
     text: 'Code commits',
   },
 ];

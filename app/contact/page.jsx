@@ -50,11 +50,18 @@ const Contact = () => {
         <div className='flex flex-col xl:flex-row gap-[30px] xl:justify-between'>
           {/* form */}
           <form className='xl:w-[54%] order-2 xl:order-none flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl  '>
-            <h3 className='text-accent text-4xl'>Let's work together</h3>
-            <p className='text-white/60'>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis
-              itaque dolorum expedita sit earum aliquid possimus quidem
-            </p>
+            <div>
+              <span className='text-accent text-4xl text-bold leading-none'>
+                Let's work together
+              </span>
+              <p className='text-white/90'>
+                Ready to craft something remarkable?
+              </p>
+              <p className='text-base text-white/60'>
+                Let's discuss how my skills and expertise can propel your
+                project forward.
+              </p>
+            </div>
             {/* input */}
             <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
               <Input
@@ -77,15 +84,15 @@ const Contact = () => {
             {/* select */}
             <Select>
               <SelectTrigger className='w-full'>
-                <SelectValue placeholder='Select a trigger'></SelectValue>
+                <SelectValue placeholder='Select a service'></SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Select a service</SelectLabel>
-                  <SelectItem value='wd'>Web Development</SelectItem>
-                  <SelectItem value='bd'>Backend Development</SelectItem>
+                  <SelectItem value='fd'>FE Development</SelectItem>
+                  <SelectItem value='bd'>BE Development</SelectItem>
                   <SelectItem value='ad'>AWS Deployment</SelectItem>
-                  <SelectItem value='ld'>Logo Design</SelectItem>
+                  <SelectItem value='ee'>End 2 End DevDeploy</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

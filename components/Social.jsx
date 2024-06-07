@@ -4,20 +4,20 @@ import { FaGithub, FaLinkedinIn, FaYoutube, FaTwitter } from 'react-icons/fa';
 const socialLinks = [
   {
     icon: <FaGithub />,
-    path: '',
+    path: 'https://github.com/prasunparijat',
   },
   {
     icon: <FaLinkedinIn />,
-    path: '',
+    path: 'https://www.linkedin.com/in/prasun-p-5044b0196/',
   },
-  {
-    icon: <FaYoutube />,
-    path: '',
-  },
-  {
-    icon: <FaTwitter />,
-    path: '',
-  },
+  // {
+  //   icon: <FaYoutube />,
+  //   path: '',
+  // },
+  // {
+  //   icon: <FaTwitter />,
+  //   path: '',
+  // },
 ];
 const Social = ({ containerStyles, iconStyles }) => {
   return (
@@ -28,6 +28,7 @@ const Social = ({ containerStyles, iconStyles }) => {
             key={index}
             href={socialLink.path}
             className={iconStyles}
+            target='_blank'
           >
             {socialLink.icon}
           </Link>
