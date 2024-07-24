@@ -23,7 +23,7 @@ const projects = [
     description:
       'Single game (football) fantasy BE including the following features: user login, email system, session-management, team submission, leaderboard, referral program & incentives, support, score calculation after getting events for specific events during the match from third party, automated slack alerts',
     stack: [{ name: 'Golang' }, { name: 'Sqlc' }, { name: 'PostgreSQL' }],
-    img: '/assets/work/thumb1.png',
+    img: 'assets/work/thumb1.png',
     live: '',
     github: '',
   },
@@ -34,7 +34,7 @@ const projects = [
     description:
       'Designed and implemented the complete frontend from scratch in svelte handling all the reactivity required for the dynamic nature of team creation and submission based on the logic decided by the product team',
     stack: [{ name: 'Svelte' }],
-    img: '/assets/work/thumb2.png',
+    img: 'assets/work/thumb2.png',
     live: '',
     github: '',
   },
@@ -45,7 +45,7 @@ const projects = [
     description:
       'Both FE and BE deployed on the EC2 instance and the domains hosted from hostinger and registered the cname from AWS. Load balancing for both the BE and FE services. DB accessible only from the private subnet created in the AWS and through remote ssh login.',
     stack: [{ name: 'AWS' }],
-    img: '/assets/work/thumb3.png',
+    img: 'assets/work/thumb3.png',
     live: '',
     github: '',
   },

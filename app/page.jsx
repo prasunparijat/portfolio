@@ -48,7 +48,7 @@ const Home = () => {
               className='flex flex-col xl:flex-row items-center gap-8'
             >
               <a
-                href='/assets/resume/resume.pdf'
+                href='assets/resume/resume.pdf'
                 target='_blank'
               >
                 <Button

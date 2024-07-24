@@ -54,7 +54,7 @@ const about = {
 
 // experience data
 const experience = {
-  icon: '/assets/resume/badge.svg',
+  icon: 'assets/resume/badge.svg',
   title: 'My Experience',
   description: 'Delivered impactful and result-oriented features and solutions',
   items: [
@@ -83,7 +83,7 @@ const experience = {
 
 // education data
 const education = {
-  icon: '/assets/resume/cap.svg',
+  icon: 'assets/resume/cap.svg',
   title: 'My Education',
   description:
     'Lorem ajsbdkabsd ajsbnd kjabs asdjnakjs jkabnsdjkasdjk andsj aSd',
