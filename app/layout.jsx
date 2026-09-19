@@ -1,26 +1,22 @@
-import { JetBrains_Mono } from 'next/font/google';
-import './globals.css';
+import "./globals.css";
 
 // components
-import Header from '@/components/Header';
-import PageTransition from '@/components/PageTransition';
-import StairTransition from '@/components/StairTransition';
-
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
-  variable: '--font-jetBrainsMono',
-});
+import Header from "@/components/Header";
+import PageTransition from "@/components/PageTransition";
+import StairTransition from "@/components/StairTransition";
 
 export const metadata = {
-  title: 'Prasun Portfolio',
-  description: 'Developer Portfolio',
+  title: "Prasun P",
+  description: "Developer Portfolio",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en'>
-      <body className={jetBrainsMono.variable}>
+    <html lang="en">
+      <body>
         <Header />
         <StairTransition />
         <PageTransition>{children}</PageTransition>

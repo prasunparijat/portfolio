@@ -2,9 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary: #f97316;
+  --primary-hover: #ea580c;
+  --background: #fff1e6;
+  --surface: #ffe4d1;
+  --foreground: #3f2a1d;
+  --muted: #806b5d;
+  --accent: #f97316;
+  --accent-hover: #ea580c;
+  --font-jetBrainsMono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+}
+
 @layer base {
+  * {
+    border-color: color-mix(in srgb, var(--foreground) 15%, transparent);
+  }
+
+  html {
+    background: var(--background);
+  }
+
   body {
-    @apply font-primary bg-primary text-white leading-loose;
+    @apply font-primary bg-background text-foreground leading-loose;
+    transition: background-color 200ms ease, color 200ms ease;
   }
   .h1 {
     @apply text-[48px] xl:text-[80px] font-semibold leading-[1.1];
@@ -16,9 +37,9 @@
     @apply text-[20px] xl:text-[24px] font-semibold leading-[1.1];
   }
   .text-outline {
-    -webkit-text-stroke: 1px #ffffff;
+    -webkit-text-stroke: 1px var(--foreground);
   }
   .text-outline-hover {
-    -webkit-text-stroke: 1px #00ff99;
+    -webkit-text-stroke: 1px var(--accent);
   }
 }

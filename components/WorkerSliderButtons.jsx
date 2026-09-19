@@ -11,13 +11,13 @@ const WorkerSliderButtons = ({ containerStyles, iconStyles, btnStyles }) => {
         className={btnStyles}
         onClick={() => swiper.slidePrev()}
       >
-        <PiCaretLeftBold className={iconStyles}></PiCaretLeftBold>
+        <PiCaretLeftBold className={`pointer-events-none ${iconStyles}`}></PiCaretLeftBold>
       </button>
       <button
         className={btnStyles}
         onClick={() => swiper.slideNext()}
       >
-        <PiCaretRightBold className={iconStyles}></PiCaretRightBold>
+        <PiCaretRightBold className={`pointer-events-none ${iconStyles}`}></PiCaretRightBold>
       </button>
     </div>
   );

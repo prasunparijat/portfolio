@@ -20,14 +20,21 @@ const servicesOffered = [
   },
   {
     num: '03',
-    title: 'AWS deployment',
+    title: 'Shopify Growth Engineering',
+    description:
+      'Released a Shopify app for clients and helped them scale their businesses by up to 4x through Meta Pixel integration for data-driven sales, targeted advertising and ROAS optimization, and technical conversion rate engineering across the storefront and checkout journey.',
+    href: '/contact',
+  },
+  {
+    num: '04',
+    title: 'AWS Deployment',
     description:
       'Seamlessly deploy your applications to the cloud using the power of AWS. Leveraging AWS for secure, scalable, and cost-effective deployments.',
     href: '/contact',
   },
   {
-    num: '04',
-    title: 'End 2 End DevDeploy',
+    num: '05',
+    title: 'End-to-End Development & Deployment',
     description:
       'Streamlined development and deployment, taking your project from concept to launch. We handle the entire process, so you can focus on building great things.',
     href: '/contact',
@@ -35,13 +42,13 @@ const servicesOffered = [
 ];
 const Services = () => {
   return (
-    <section className='min-h-[80vh] flex flex-col justify-center py-12 xl:py-0'>
+    <section className='min-h-[80vh] flex flex-col justify-center pb-12 pt-16 xl:pb-0 xl:pt-12'>
       <div className='container mx-auto'>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{
             opacity: 1,
-            transition: { delay: 2.4, duration: 0.4, ease: 'easeIn' },
+            transition: { delay: 0.2, duration: 0.3, ease: 'easeOut' },
           }}
           className='grid grid-cols-1 md:grid-cols-2 gap-[60px]'
         >
@@ -57,16 +64,16 @@ const Services = () => {
                   </div>
                   <Link
                     href={service.href}
-                    className='w-[70px] h-[70px] flex justify-center items-center rounded-full bg-white group-hover:bg-accent hover:-rotate-45 transition-all duration-500'
+                    className='group/link flex h-[70px] w-[70px] cursor-default items-center justify-center rounded-full bg-background text-primary transition-colors duration-300 group-hover:bg-accent group-hover:text-background'
                   >
-                    <BsArrowDownRight className='text-3xl text-primary' />
+                    <BsArrowDownRight className='pointer-events-none text-3xl text-inherit transition-transform duration-300 group-hover/link:-rotate-45' />
                   </Link>
                 </div>
-                <h2 className='text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500'>
+                <h2 className={`font-bold leading-none text-foreground group-hover:text-accent transition-all duration-500 ${service.title === 'Shopify Growth Engineering' ? 'whitespace-nowrap text-[28px] xl:text-[34px]' : 'text-[42px]'}`}>
                   {service.title}
                 </h2>
-                <p className='text-white/60'>{service.description}</p>
-                <div className='border-b border-white/20 w-full'></div>
+                <p className='text-muted'>{service.description}</p>
+                <div className='border-b border-foreground w-full'></div>
               </div>
             );
           })}

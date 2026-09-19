@@ -14,25 +14,22 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 
-import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
+import { FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 const info = [
   {
-    icon: <FaPhoneAlt />,
-    title: 'Phone',
-    description: '(+91) 9515967416',
-  },
-  {
     icon: <FaEnvelope />,
     title: 'Email',
     description: 'prasunparijatm@gmail.com',
+    href: 'mailto:prasunparijatm@gmail.com',
   },
 
   {
     icon: <FaMapMarkerAlt />,
     title: 'Location',
     description: 'Mumbai, India',
+    href: 'https://www.google.com/maps/search/?api=1&query=Mumbai%2C%20India',
   },
 ];
 
@@ -42,23 +39,23 @@ const Contact = () => {
       initial={{ opacity: 0 }}
       animate={{
         opacity: 1,
-        transition: { delay: 2.4, duration: 0.4, ease: 'easeIn' },
+        transition: { delay: 0.2, duration: 0.3, ease: 'easeOut' },
       }}
       className='py-6'
     >
       <div className='container mx-auto'>
         <div className='flex flex-col xl:flex-row gap-[30px] xl:justify-between'>
           {/* form */}
-          <form className='xl:w-[54%] order-2 xl:order-none flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl  '>
+          <form className='xl:w-[54%] order-2 xl:order-none flex flex-col gap-6 p-10 bg-surface rounded-xl  '>
             <div>
               <span className='text-accent text-4xl text-bold leading-none'>
-                Let's work together
+                Let&apos;s work together
               </span>
-              <p className='text-white/90'>
+              <p className='text-foreground'>
                 Ready to craft something remarkable?
               </p>
-              <p className='text-base text-white/60'>
-                Let's discuss how my skills and expertise can propel your
+              <p className='text-base text-muted'>
+                Let&apos;s discuss how my skills and expertise can propel your
                 project forward.
               </p>
             </div>
@@ -91,8 +88,9 @@ const Contact = () => {
                   <SelectLabel>Select a service</SelectLabel>
                   <SelectItem value='fd'>FE Development</SelectItem>
                   <SelectItem value='bd'>BE Development</SelectItem>
+                  <SelectItem value='shopify'>Shopify Growth Engineering</SelectItem>
                   <SelectItem value='ad'>AWS Deployment</SelectItem>
-                  <SelectItem value='ee'>End 2 End DevDeploy</SelectItem>
+                  <SelectItem value='ee'>End-to-End Development &amp; Deployment</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -112,17 +110,23 @@ const Contact = () => {
             <ul className='flex flex-col gap-10 xl:gap-20'>
               {info.map((item, index) => {
                 return (
-                  <li
-                    key={index}
-                    className='flex items-center gap-6'
-                  >
-                    <div className='w-[52px] h-[52px] xl:w-[72px] xl:h-[72px] bg-[#27272c] flex justify-center items-center rounded-md text-[28px] text-accent'>
-                      {item.icon}
-                    </div>
-                    <div>
-                      <div className='text-white/60'>{item.title}</div>
-                      <div className='text-xl'>{item.description}</div>
-                    </div>
+                  <li key={index}>
+                    <a
+                      href={item.href}
+                      target={item.title === 'Location' ? '_blank' : undefined}
+                      rel={item.title === 'Location' ? 'noreferrer' : undefined}
+                      className='group flex items-center gap-6'
+                    >
+                      <div className='flex h-[52px] w-[52px] items-center justify-center rounded-md bg-surface text-[28px] text-accent transition-colors group-hover:bg-accent group-hover:text-background xl:h-[72px] xl:w-[72px]'>
+                        {item.icon}
+                      </div>
+                      <div>
+                        <div className='text-muted'>{item.title}</div>
+                        <div className='text-xl transition-colors group-hover:text-accent'>
+                          {item.description}
+                        </div>
+                      </div>
+                    </a>
                   </li>
                 );
               })}
