@@ -1,36 +1,40 @@
-This is Prasun Parijat's Next.js portfolio site.
+# Prasun P Portfolio
 
-## Getting Started
+Personal portfolio built with Next.js, Tailwind CSS, Framer Motion, and a warm orange/beige theme.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.jsx`. The page auto-updates as you edit the file.
+For local contact-form testing, copy `.env.example` to `.env.local` and add your Web3Forms access key:
 
-The site uses a local system monospace font stack and a configurable warm orange/beige theme.
+```env
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your_web3forms_access_key
+```
 
-## Learn More
+The key is intentionally kept in `.env.local`, which is ignored by Git.
 
-To learn more about Next.js, take a look at the following resources:
+## Checks
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run lint
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## GitHub Pages deployment
 
-## Deploy on Vercel
+Deployment is handled by [`.github/workflows/nextjs.yml`](.github/workflows/nextjs.yml) whenever changes are pushed to `master`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Before deploying, add this repository secret in GitHub under **Settings → Secrets and variables → Actions**:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```text
+Name: NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
+Value: your Web3Forms access key
+```
+
+The workflow injects the secret during the static build so the Contact form can submit through [Web3Forms](https://docs.web3forms.com/). The `NEXT_PUBLIC_` value is bundled into the browser build as required by this client-side form integration; it must not be treated as a private server secret.

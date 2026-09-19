@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -34,8 +36,65 @@ const info = [
 ];
 
 const Contact = () => {
+  const [service, setService] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notice, setNotice] = useState(null);
+
+  useEffect(() => {
+    if (!notice) return undefined;
+
+    const timeout = window.setTimeout(() => setNotice(null), 4000);
+    return () => window.clearTimeout(timeout);
+  }, [notice]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setNotice(null);
+
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          subject: `New portfolio enquiry from ${data.firstname} ${data.lastname}`,
+          from_name: `${data.firstname} ${data.lastname}`,
+          ...data,
+          service,
+        }),
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Unable to send your message.');
+      }
+
+      form.reset();
+      setService('');
+      setNotice({
+        type: 'success',
+        message: 'Message received successfully. I’ll get back to you soon.',
+      });
+    } catch (error) {
+      setNotice({
+        type: 'error',
+        message: error.message || 'Something went wrong. Please try again.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <motion.section
+    <>
+      <motion.section
       initial={{ opacity: 0 }}
       animate={{
         opacity: 1,
@@ -43,10 +102,13 @@ const Contact = () => {
       }}
       className='py-6'
     >
-      <div className='container mx-auto'>
+        <div className='container mx-auto'>
         <div className='flex flex-col xl:flex-row gap-[30px] xl:justify-between'>
           {/* form */}
-          <form className='xl:w-[54%] order-2 xl:order-none flex flex-col gap-6 p-10 bg-surface rounded-xl  '>
+          <form
+            onSubmit={handleSubmit}
+            className='xl:w-[54%] order-2 xl:order-none flex flex-col gap-6 p-10 bg-surface rounded-xl'
+          >
             <div>
               <span className='text-accent text-4xl text-bold leading-none'>
                 Let&apos;s work together
@@ -62,24 +124,35 @@ const Contact = () => {
             {/* input */}
             <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
               <Input
-                type='firstname'
+                name='firstname'
+                type='text'
+                required
                 placeholder='Firstname'
               />
               <Input
-                type='lastname'
+                name='lastname'
+                type='text'
+                required
                 placeholder='Lastname'
               />
               <Input
+                name='email'
                 type='email'
+                required
                 placeholder='Email Address'
               />
               <Input
-                type='phone'
+                name='phone'
+                type='tel'
                 placeholder='Phone Number'
               />
             </div>
             {/* select */}
-            <Select>
+            <Select
+              name='service'
+              value={service}
+              onValueChange={setService}
+            >
               <SelectTrigger className='w-full'>
                 <SelectValue placeholder='Select a service'></SelectValue>
               </SelectTrigger>
@@ -96,13 +169,17 @@ const Contact = () => {
             </Select>
             <Textarea
               className='h-[200px]'
+              name='message'
+              required
               placeholder='Type your message here'
             ></Textarea>
             <Button
               size='md'
               className='max-w-40'
+              type='submit'
+              disabled={isSubmitting}
             >
-              Send Message
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </Button>
           </form>
           {/* info */}
@@ -133,8 +210,21 @@ const Contact = () => {
             </ul>
           </div>
         </div>
-      </div>
-    </motion.section>
+        </div>
+      </motion.section>
+      {notice && (
+        <div
+          role={notice.type === 'error' ? 'alert' : 'status'}
+          className={`fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-lg border px-5 py-3 text-sm shadow-lg ${
+            notice.type === 'success'
+              ? 'border-accent bg-accent text-background'
+              : 'border-red-700 bg-red-100 text-red-900'
+          }`}
+        >
+          {notice.message}
+        </div>
+      )}
+    </>
   );
 };
 
