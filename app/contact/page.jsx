@@ -39,6 +39,7 @@ const Contact = () => {
   const [service, setService] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notice, setNotice] = useState(null);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (!notice) return undefined;
@@ -47,13 +48,60 @@ const Contact = () => {
     return () => window.clearTimeout(timeout);
   }, [notice]);
 
+  const validateForm = (data) => {
+    const nextErrors = {};
+    const namePattern = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const phonePattern = /^\+?[\d\s().-]{7,20}$/;
+
+    if (!data.firstname || data.firstname.length < 3) {
+      nextErrors.firstname = 'First name must be at least 3 characters.';
+    } else if (!namePattern.test(data.firstname)) {
+      nextErrors.firstname = 'Please enter a valid first name.';
+    }
+
+    if (!data.lastname || data.lastname.length < 2) {
+      nextErrors.lastname = 'Last name must be at least 2 characters.';
+    } else if (!namePattern.test(data.lastname)) {
+      nextErrors.lastname = 'Please enter a valid last name.';
+    }
+
+    if (!emailPattern.test(data.email)) {
+      nextErrors.email = 'Please enter a valid email address.';
+    }
+
+    if (data.phone && !phonePattern.test(data.phone)) {
+      nextErrors.phone = 'Please enter a valid phone number.';
+    }
+
+    if (!service) {
+      nextErrors.service = 'Please select a service.';
+    }
+
+    if (!data.message || data.message.length < 10) {
+      nextErrors.message = 'Message must be at least 10 characters.';
+    }
+
+    return nextErrors;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsSubmitting(true);
     setNotice(null);
 
     const form = event.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
+    const data = Object.fromEntries(
+      [...new FormData(form).entries()].map(([key, value]) => [
+        key,
+        typeof value === 'string' ? value.trim() : value,
+      ])
+    );
+    const validationErrors = validateForm(data);
+
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) return;
+
+    setIsSubmitting(true);
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -78,6 +126,7 @@ const Contact = () => {
 
       form.reset();
       setService('');
+      setErrors({});
       setNotice({
         type: 'success',
         message: 'Message received successfully. I’ll get back to you soon.',
@@ -107,6 +156,7 @@ const Contact = () => {
           {/* form */}
           <form
             onSubmit={handleSubmit}
+            noValidate
             className='xl:w-[54%] order-2 xl:order-none flex flex-col gap-6 p-10 bg-surface rounded-xl'
           >
             <div>
@@ -122,39 +172,93 @@ const Contact = () => {
               </p>
             </div>
             {/* input */}
-            <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
-              <Input
-                name='firstname'
-                type='text'
-                required
-                placeholder='Firstname'
-              />
-              <Input
-                name='lastname'
-                type='text'
-                required
-                placeholder='Lastname'
-              />
-              <Input
-                name='email'
-                type='email'
-                required
-                placeholder='Email Address'
-              />
-              <Input
-                name='phone'
-                type='tel'
-                placeholder='Phone Number'
-              />
+            <div className='grid grid-cols-1 gap-6 xl:grid-cols-2'>
+              <div>
+                <label htmlFor='firstname' className='sr-only'>
+                  First name
+                </label>
+                <div className='relative'>
+                  <Input
+                    id='firstname'
+                    name='firstname'
+                    type='text'
+                    required
+                    minLength={3}
+                    aria-invalid={Boolean(errors.firstname)}
+                    placeholder='Firstname'
+                  />
+                  <span className='pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-red-600' aria-hidden='true'>*</span>
+                </div>
+                {errors.firstname && <p className='mt-1 text-sm text-red-700'>{errors.firstname}</p>}
+              </div>
+              <div>
+                <label htmlFor='lastname' className='sr-only'>
+                  Last name
+                </label>
+                <div className='relative'>
+                  <Input
+                    id='lastname'
+                    name='lastname'
+                    type='text'
+                    required
+                    minLength={2}
+                    aria-invalid={Boolean(errors.lastname)}
+                    placeholder='Lastname'
+                  />
+                  <span className='pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-red-600' aria-hidden='true'>*</span>
+                </div>
+                {errors.lastname && <p className='mt-1 text-sm text-red-700'>{errors.lastname}</p>}
+              </div>
+              <div>
+                <label htmlFor='email' className='sr-only'>
+                  Email address
+                </label>
+                <div className='relative'>
+                  <Input
+                    id='email'
+                    name='email'
+                    type='email'
+                    required
+                    aria-invalid={Boolean(errors.email)}
+                    placeholder='Email Address'
+                  />
+                  <span className='pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-red-600' aria-hidden='true'>*</span>
+                </div>
+                {errors.email && <p className='mt-1 text-sm text-red-700'>{errors.email}</p>}
+              </div>
+              <div>
+                <label htmlFor='phone' className='sr-only'>
+                  Phone number
+                </label>
+                <Input
+                  id='phone'
+                  name='phone'
+                  type='tel'
+                  aria-invalid={Boolean(errors.phone)}
+                  placeholder='Phone Number (optional)'
+                />
+                {errors.phone && <p className='mt-1 text-sm text-red-700'>{errors.phone}</p>}
+              </div>
             </div>
             {/* select */}
+            <label htmlFor='service' className='sr-only'>
+              Service
+            </label>
             <Select
               name='service'
               value={service}
-              onValueChange={setService}
+              onValueChange={(value) => {
+                setService(value);
+                setErrors((currentErrors) => {
+                  const nextErrors = { ...currentErrors };
+                  delete nextErrors.service;
+                  return nextErrors;
+                });
+              }}
             >
-              <SelectTrigger className='w-full'>
+              <SelectTrigger id='service' className='relative w-full'>
                 <SelectValue placeholder='Select a service'></SelectValue>
+                <span className='pointer-events-none absolute right-10 text-red-600' aria-hidden='true'>*</span>
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
@@ -167,12 +271,23 @@ const Contact = () => {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Textarea
-              className='h-[200px]'
-              name='message'
-              required
-              placeholder='Type your message here'
-            ></Textarea>
+            {errors.service && <p className='-mt-4 text-sm text-red-700'>{errors.service}</p>}
+            <label htmlFor='message' className='sr-only'>
+              Message
+            </label>
+            <div className='relative'>
+              <Textarea
+                id='message'
+                className='h-[200px]'
+                name='message'
+                required
+                minLength={10}
+                aria-invalid={Boolean(errors.message)}
+                placeholder='Type your message here'
+              ></Textarea>
+              <span className='pointer-events-none absolute right-4 top-3 text-red-600' aria-hidden='true'>*</span>
+            </div>
+            {errors.message && <p className='-mt-4 text-sm text-red-700'>{errors.message}</p>}
             <Button
               size='md'
               className='max-w-40'
